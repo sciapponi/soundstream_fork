@@ -4,8 +4,8 @@ from typing import Literal
 import torch.nn as nn
 from vector_quantize_pytorch import ResidualVQ
 
-from soundstream.encoder import Encoder
-from soundstream.decoder import Decoder
+from encoder import Encoder
+from decoder import Decoder
 
 
 class SoundStream(nn.Module):
