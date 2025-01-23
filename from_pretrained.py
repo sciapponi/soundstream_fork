@@ -1,9 +1,7 @@
 import torch
 import torchaudio
 from huggingface_hub import hf_hub_download
-
 from soundstream import SoundStream
-
 
 def _infer_device():
     if torch.cuda.is_available():
@@ -36,20 +34,3 @@ def from_pretrained(
     )
 
     return model_naturalspeech2
-
-
-def load(waveform_path):
-    # Load audio from file
-    waveform, sample_rate = torchaudio.load(waveform_path)
-
-    # Resample to the frequency the model was trained on
-    resampler = torchaudio.transforms.Resample(
-        sample_rate,
-        16000,
-        dtype=waveform.dtype
-    )
-    waveform = resampler(waveform)
-    # Combine channels to get mono audio
-    waveform = waveform.mean(dim=0, keepdim=True)
-
-    return torch.unsqueeze(waveform, dim=0)
